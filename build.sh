@@ -3,7 +3,7 @@
 set -ex
 
 RUSTC_WRAPPER=sccache
-FEATUREs="lua53"
+FEATURES="lua53"
 
 # From: https://github.com/rust-bitcoin/rust-secp256k1/blob/master/contrib/test.sh
 #if [ "$DO_WASM" = true ]; then
