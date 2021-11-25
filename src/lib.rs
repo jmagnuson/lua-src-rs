@@ -184,6 +184,11 @@ impl Build {
             }
         }
 
+        // Header files. WASM only.
+        if env::var("CARGO_CFG_TARGET_ARCH").unwrap() == "wasm32" {
+            config.include("wasm-sysroot");
+        }
+
         config.out_dir(&lib_dir).compile(lib_name);
 
         for f in &["lauxlib.h", "lua.h", "luaconf.h", "lualib.h"] {

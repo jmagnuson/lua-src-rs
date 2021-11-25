@@ -19,3 +19,7 @@ members = ["testcrate"]
 
 [dependencies]
 cc = "1.0.54"
+wasm-bindgen = "0.2"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
