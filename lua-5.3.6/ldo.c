@@ -10,7 +10,9 @@
 #include "lprefix.h"
 
 
+#if 0
 #include <setjmp.h>
+#endif
 #include <stdlib.h>
 #include <string.h>
 
@@ -63,9 +65,15 @@
 #elif defined(LUA_USE_POSIX)				/* }{ */
 
 /* in POSIX, try _longjmp/_setjmp (more efficient) */
+#if 0
 #define LUAI_THROW(L,c)		_longjmp((c)->b, 1)
 #define LUAI_TRY(L,c,a)		if (_setjmp((c)->b) == 0) { a }
 #define luai_jmpbuf		jmp_buf
+#else
+#define LUAI_THROW(L,c)
+#define LUAI_TRY(L,c,a) { a }
+#define luai_jmpbuf     int
+#endif
 
 #else							/* }{ */
 

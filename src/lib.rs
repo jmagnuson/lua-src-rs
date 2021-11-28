@@ -103,6 +103,25 @@ impl Build {
                 // Defined in Lua >= 5.3
                 config.define("LUA_USE_WINDOWS", None);
             }
+            _ if target.contains("wasm") => {
+                // Defined in Lua >= 5.3
+                config.define("LUA_USE_POSIX", None);
+
+                // Other stuff
+                config.define("_WASI_EMULATED_SIGNAL", None);
+                config.define("_WASI_EMULATED_PROCESS_CLOCK", None);
+
+                config.include("/home/jon/src/oss/wasm/wasi/wasi-sdk-14.0/share/wasi-sysroot/include");
+                config.compiler("/home/jon/src/oss/wasm/wasi/wasi-sdk-14.0/bin/clang");
+
+                println!(
+                    "cargo:rustc-link-search={}",
+                    "/home/jon/src/oss/wasm/wasi/wasi-sdk-14.0/share/wasi-sysroot/lib/wasm32-wasi"
+                );
+
+                println!("cargo:rustc-link-lib=static=wasi-emulated-signal");
+                println!("cargo:rustc-link-lib=static=wasi-emulated-process-clocks");
+            }
             _ => panic!("don't know how to build Lua for {}", target),
         };
 

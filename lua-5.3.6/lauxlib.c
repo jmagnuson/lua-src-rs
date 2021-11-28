@@ -253,7 +253,9 @@ LUALIB_API int luaL_fileresult (lua_State *L, int stat, const char *fname) {
 
 #if defined(LUA_USE_POSIX)
 
+#if 0
 #include <sys/wait.h>
+#endif
 
 /*
 ** use appropriate macros to interpret 'pclose' return status
