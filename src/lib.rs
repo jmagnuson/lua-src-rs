@@ -109,7 +109,7 @@ impl Build {
 
                 // Other stuff
                 config.define("_WASI_EMULATED_SIGNAL", None);
-                config.define("_WASI_EMULATED_PROCESS_CLOCK", None);
+                // config.define("_WASI_EMULATED_PROCESS_CLOCK", None);
 
                 config.include("/home/jon/src/oss/wasm/wasi/wasi-sdk-14.0/share/wasi-sysroot/include");
                 config.compiler("/home/jon/src/oss/wasm/wasi/wasi-sdk-14.0/bin/clang");
@@ -120,7 +120,7 @@ impl Build {
                 );
 
                 println!("cargo:rustc-link-lib=static=wasi-emulated-signal");
-                println!("cargo:rustc-link-lib=static=wasi-emulated-process-clocks");
+                // println!("cargo:rustc-link-lib=static=wasi-emulated-process-clocks");
             }
             _ => panic!("don't know how to build Lua for {}", target),
         };
