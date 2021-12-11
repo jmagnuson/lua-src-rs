@@ -105,7 +105,7 @@ impl Build {
             }
             _ if target.contains("wasm") => {
                 // Defined in Lua >= 5.3
-                config.define("LUA_USE_POSIX", None);
+                //config.define("LUA_USE_POSIX", None);
 
                 // Other stuff
                 config.define("_WASI_EMULATED_SIGNAL", None);
@@ -115,7 +115,7 @@ impl Build {
                 //config.compiler("/home/jon/src/oss/wasm/wasi/wasi-sdk-14.0/bin/clang");
                 //
 
-                config.define("LUA_API", r#"__attribute__((visibility("default")))"#);
+                //config.define("LUA_API", r#"__attribute__((visibility("default")))"#);
 
                 /*println!(
                     "cargo:rustc-link-search={}",

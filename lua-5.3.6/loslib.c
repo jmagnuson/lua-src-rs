@@ -108,8 +108,6 @@ static time_t l_checktime (lua_State *L, int arg) {
 */
 #if !defined(lua_tmpnam)	/* { */
 
-#if defined(LUA_USE_POSIX)	/* { */
-
 #include <unistd.h>
 
 #define LUA_TMPNAMBUFSIZE	32
@@ -119,18 +117,7 @@ static time_t l_checktime (lua_State *L, int arg) {
 #endif
 
 #define lua_tmpnam(b,e) { \
-        strcpy(b, LUA_TMPNAMTEMPLATE); \
-        e = mkstemp(b); \
-        if (e != -1) close(e); \
-        e = (e == -1); }
-
-#else				/* }{ */
-
-/* ISO C definitions */
-#define LUA_TMPNAMBUFSIZE	L_tmpnam
-#define lua_tmpnam(b,e)		{ e = (tmpnam(b) == NULL); }
-
-#endif				/* } */
+        e = 1; }
 
 #endif				/* } */
 /* }================================================================== */
@@ -139,6 +126,7 @@ static time_t l_checktime (lua_State *L, int arg) {
 
 
 static int os_execute (lua_State *L) {
+#if 0
   const char *cmd = luaL_optstring(L, 1, NULL);
   int stat = system(cmd);
   if (cmd != NULL)
@@ -147,6 +135,9 @@ static int os_execute (lua_State *L) {
     lua_pushboolean(L, stat);  /* true if there is a shell */
     return 1;
   }
+#else
+  return 1;
+#endif
 }
 
 

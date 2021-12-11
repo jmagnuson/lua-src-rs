@@ -260,9 +260,13 @@ LUALIB_API int luaL_fileresult (lua_State *L, int stat, const char *fname) {
 /*
 ** use appropriate macros to interpret 'pclose' return status
 */
+#if 0
 #define l_inspectstat(stat,what)  \
    if (WIFEXITED(stat)) { stat = WEXITSTATUS(stat); } \
    else if (WIFSIGNALED(stat)) { stat = WTERMSIG(stat); what = "signal"; }
+#else
+#define l_inspectstat(stat,what)  /* no op */
+#endif
 
 #else
 

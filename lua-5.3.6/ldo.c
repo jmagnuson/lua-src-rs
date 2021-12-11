@@ -78,9 +78,15 @@
 #else							/* }{ */
 
 /* ISO C handling with long jumps */
-#define LUAI_THROW(L,c)		longjmp((c)->b, 1)
-#define LUAI_TRY(L,c,a)		if (setjmp((c)->b) == 0) { a }
+#if 0
+#define LUAI_THROW(L,c)		_longjmp((c)->b, 1)
+#define LUAI_TRY(L,c,a)		if (_setjmp((c)->b) == 0) { a }
 #define luai_jmpbuf		jmp_buf
+#else
+#define LUAI_THROW(L,c)
+#define LUAI_TRY(L,c,a) { a }
+#define luai_jmpbuf     int
+#endif
 
 #endif							/* } */
 
